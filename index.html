@@ -85,9 +85,12 @@
             btn.disabled = true;
             btn.innerText = "Envoi en cours...";
 
+            // Dans ton événement 'submit', remplace la création du payload par ceci :
+            const joursCoches = Array.from(document.querySelectorAll('input[name="jours"]:checked')).map(el => el.value);
+            
             const payload = {
                 nom: document.getElementById('nom').value,
-                presence: document.getElementById('presence').value,
+                presence: joursCoches.join(', '), // Enregistre "Jeudi, Vendredi"
                 apporte: document.getElementById('apporte').value
             };
 
