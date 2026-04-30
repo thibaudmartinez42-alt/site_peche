@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week-end Entre Amis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans p-4">
+
+    <header class="max-w-md mx-auto text-center py-8">
+        <h1 class="text-3xl font-bold text-slate-800">Week-end 3 Jours 🏕️</h1>
+        <p class="text-slate-500 mt-2">Dis-nous quand tu viens et ce que tu ramènes !</p>
+    </header>
+
+    <main class="max-w-md mx-auto bg-white rounded-2xl shadow-sm p-6 border border-slate-100">
+        <form id="presenceForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-slate-700">Ton petit nom</label>
+                <input type="text" id="nom" required class="mt-1 block w-full rounded-lg border-slate-200 bg-slate-50 p-2.5 outline-blue-500 border">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700">Ta présence</label>
+                <select id="presence" class="mt-1 block w-full rounded-lg border-slate-200 bg-slate-50 p-2.5 border">
+                    <option>Tout le week-end</option>
+                    <option>Vendredi & Samedi</option>
+                    <option>Samedi & Dimanche</option>
+                    <option>Juste un jour</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-slate-700">Ce que tu apportes (boisson, bouffe...)</label>
+                <textarea id="apporte" rows="2" class="mt-1 block w-full rounded-lg border-slate-200 bg-slate-50 p-2.5 border" placeholder="Ex: Pack de bières et chips"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition">
+                Valider ma présence
+            </button>
+        </form>
+    </main>
+
+    <section class="max-w-md mx-auto mt-8">
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Qui vient ?</h2>
+        <div id="listeParticipants" class="space-y-3">
+            <p class="text-slate-400 text-sm">Chargement de la liste...</p>
+        </div>
+    </section>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzaDd_p_wgVd9prdLtCTncPvb6SR__GRo4O9NP15tpiiRRArwX0znKUDVFmFaqVHd_yig/exec";
+
+        // Charger la liste au démarrage
+        async function loadParticipants() {
+            const res = await fetch(SCRIPT_URL);
+            const data = await res.json();
+            const container = document.getElementById('listeParticipants');
+            container.innerHTML = data.map(p => `
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="font-bold text-slate-800">${p[0]}</div>
+                    <div class="text-xs text-blue-600 font-medium uppercase mt-1">${p[1]}</div>
+                    <div class="text-sm text-slate-600 mt-1 italic">" ${p[2] || 'Rien pour l\'instant'} "</div>
+                </div>
+            `).join('');
+        }
+
+        // Envoyer le formulaire
+        document.getElementById('presenceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = "Envoi en cours...";
+
+            const payload = {
+                nom: document.getElementById('nom').value,
+                presence: document.getElementById('presence').value,
+                apporte: document.getElementById('apporte').value
+            };
+
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
+
+            location.reload(); // Recharge pour voir la liste à jour
+        });
+
+        loadParticipants();
+    </script>
+</body>
+</html>
