@@ -5,65 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week-end Organisation 🏕️</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .loader { border-top-color: #3498db; animation: spinner 1.5s linear infinite; }
-        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
 </head>
-<body class="bg-slate-100 min-h-screen pb-10 font-sans">
+<body class="bg-slate-50 min-h-screen pb-10 font-sans text-slate-900">
 
-    <header class="max-w-md mx-auto text-center py-10 px-4">
-        <h1 class="text-4xl font-black text-slate-900 tracking-tight italic">LE WEEK-END 🍻</h1>
-        <p class="text-slate-500 mt-2 font-medium">Gestion des présences et victuailles</p>
+    <header class="max-w-md mx-auto text-center py-12 px-4">
+        <h1 class="text-5xl font-black italic tracking-tighter text-blue-600">LE WEEK-END</h1>
+        <p class="text-slate-400 font-bold uppercase tracking-widest text-xs mt-2">Logistique & Présences</p>
     </header>
 
-    <main class="max-w-md mx-auto bg-white rounded-[2.5rem] shadow-2xl p-8 border border-white">
+    <main class="max-w-md mx-auto bg-white rounded-[3rem] shadow-2xl shadow-blue-100 p-8 border border-slate-100">
         <form id="mainForm" class="space-y-8">
+            <input type="hidden" id="userId">
             
             <!-- NOM -->
             <div>
-                <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Ton Nom</label>
-                <input type="text" id="nom" required class="w-full rounded-2xl border-slate-100 bg-slate-50 p-4 outline-blue-500 border-2 transition-all focus:bg-white">
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Ton Identité</label>
+                <input type="text" id="nom" required placeholder="Prénom ou Surnom" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 focus:border-blue-500 focus:bg-white outline-none transition-all font-bold">
             </div>
 
             <!-- PRÉSENCE -->
             <div>
-                <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Ta présence</label>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">Tes Jours</label>
                 <div class="grid grid-cols-2 gap-3">
-                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all">
-                        <input type="checkbox" name="jours" value="Jeudi" class="w-5 h-5 rounded text-blue-600">
-                        <span class="ml-3 font-bold text-slate-700">Jeudi</span>
+                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
+                        <input type="checkbox" name="jours" value="Jeudi" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
+                        <span class="ml-3">Jeudi</span>
                     </label>
-                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all">
-                        <input type="checkbox" name="jours" value="Vendredi" class="w-5 h-5 rounded text-blue-600">
-                        <span class="ml-3 font-bold text-slate-700">Vendredi</span>
+                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
+                        <input type="checkbox" name="jours" value="Vendredi" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
+                        <span class="ml-3">Vendredi</span>
                     </label>
-                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all">
-                        <input type="checkbox" name="jours" value="Samedi" class="w-5 h-5 rounded text-blue-600">
-                        <span class="ml-3 font-bold text-slate-700">Samedi</span>
+                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
+                        <input type="checkbox" name="jours" value="Samedi" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
+                        <span class="ml-3">Samedi</span>
                     </label>
-                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all">
-                        <input type="checkbox" name="jours" value="Dimanche" class="w-5 h-5 rounded text-blue-600">
-                        <span class="ml-3 font-bold text-slate-700">Dimanche</span>
+                    <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
+                        <input type="checkbox" name="jours" value="Dimanche" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
+                        <span class="ml-3">Dimanche</span>
                     </label>
                 </div>
             </div>
 
             <!-- BOISSONS -->
             <div>
-                <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">L'Apéro</label>
-                <div class="grid grid-cols-1 gap-2">
-                    <label class="flex items-center px-4 py-2"><input type="checkbox" name="boissons" value="Bière" class="w-5 h-5 text-orange-500 rounded-full"> <span class="ml-3 font-medium">Pack de Bières 🍺</span></label>
-                    <label class="flex items-center px-4 py-2"><input type="checkbox" name="boissons" value="Captain" class="w-5 h-5 text-red-600 rounded-full"> <span class="ml-3 font-medium">Captain Morgan 🏴‍☠️</span></label>
-                    <label class="flex items-center px-4 py-2"><input type="checkbox" name="boissons" value="Get27" class="w-4 h-4 text-green-600 rounded-full"> <span class="ml-3 font-medium">Get 27 🍃</span></label>
-                    <input type="text" id="autre_apport" placeholder="Autre chose ? (Pain, sel, charbon...)" class="mt-2 w-full rounded-2xl border-slate-100 bg-slate-50 p-4 border-2 outline-blue-500">
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">L'Apéro</label>
+                <div class="space-y-2">
+                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium">
+                        <input type="checkbox" name="boissons" value="Bière" class="w-5 h-5 text-orange-500"> <span class="ml-3">Bière 🍺</span>
+                    </label>
+                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium">
+                        <input type="checkbox" name="boissons" value="Captain" class="w-5 h-5 text-red-600"> <span class="ml-3">Captain Morgan 🏴‍☠️</span>
+                    </label>
+                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium">
+                        <input type="checkbox" name="boissons" value="Get27" class="w-5 h-5 text-green-600"> <span class="ml-3">Get 27 🍃</span>
+                    </label>
+                    <input type="text" id="autre_apport" placeholder="Autre chose ? (Pain, charbon, chips...)" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 outline-none focus:border-blue-500 focus:bg-white transition-all font-medium mt-2">
                 </div>
             </div>
 
             <!-- PÊCHE -->
             <div>
-                <label class="block text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Côté Pêche 🎣</label>
-                <select id="peche" class="w-full rounded-2xl border-slate-100 bg-slate-50 p-4 border-2 font-bold text-slate-700 outline-blue-500 appearance-none">
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Style de Pêche</label>
+                <select id="peche" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 font-bold text-slate-700 outline-none focus:border-blue-500 transition-all appearance-none">
                     <option value="Aucune">Je ne pêche pas</option>
                     <option value="Carpe">Carpe 🌽</option>
                     <option value="Friture">Friture 🐟</option>
@@ -71,77 +74,61 @@
                 </select>
             </div>
 
-            <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-black py-5 rounded-[2rem] hover:bg-slate-900 transition-all shadow-xl active:scale-95">
-                VALIDER MES CHOIX
+            <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-black py-6 rounded-[2rem] hover:bg-slate-900 transition-all shadow-xl shadow-blue-200 active:scale-95 uppercase tracking-widest text-sm">
+                Valider l'inscription
             </button>
         </form>
     </main>
 
-    <!-- LISTE -->
-    <section class="max-w-md mx-auto mt-12 px-6">
-        <h2 class="text-2xl font-black text-slate-900 mb-6 flex items-center">
-            <span class="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></span>
-            LES INSCRITS
-        </h2>
-        <div id="listeParticipants" class="space-y-6 text-center py-10 text-slate-400 font-medium">
-            Chargement de la liste...
+    <section class="max-w-md mx-auto mt-16 px-6">
+        <h2 class="text-3xl font-black text-slate-900 mb-8 tracking-tighter">La Tribu <span id="count" class="text-blue-600"></span></h2>
+        <div id="listeParticipants" class="space-y-6">
+            <p class="text-center text-slate-400 animate-pulse">Chargement des troupes...</p>
         </div>
     </section>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwXK08dPGUvPBdNg6-Vfg27uc6lPy8g5zMRY6Isn0C72T0_tW6rsorRycWupDNwd1BPtQ/exec";
+        const SCRIPT_URL = "TON_URL_GOOGLE_SCRIPT_ICI";
         
-        // Gestion de l'ID unique
-        let userId = localStorage.getItem('weekend_user_id');
-        if (!userId) {
-            userId = 'user_' + Math.random().toString(36).substr(2, 9);
-            localStorage.setItem('weekend_user_id', userId);
-        }
+        let userId = localStorage.getItem('weekend_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('weekend_user_id', userId);
 
         async function loadParticipants() {
             try {
                 const res = await fetch(SCRIPT_URL);
                 const data = await res.json();
                 const container = document.getElementById('listeParticipants');
+                document.getElementById('count').innerText = data.length > 0 ? `(${data.length})` : "";
                 
-                // Pré-remplissage si l'ID existe
-                const userFound = data.find(p => p[5] === userId);
-                if (userFound) {
-                    document.getElementById('submitBtn').innerText = "MODIFIER MES CHOIX";
-                    document.getElementById('nom').value = userFound[0];
-                    document.getElementById('autre_apport').value = userFound[3];
-                    document.getElementById('peche').value = userFound[4];
-                    // Cocher les cases
-                    userFound[1].split(',').forEach(j => {
-                        let cb = document.querySelector(`input[name="jours"][value="${j.trim()}"]`);
-                        if(cb) cb.checked = true;
-                    });
-                    userFound[2].split(',').forEach(b => {
-                        let cb = document.querySelector(`input[name="boissons"][value="${b.trim()}"]`);
-                        if(cb) cb.checked = true;
-                    });
+                const me = data.find(p => p[5] === userId);
+                if (me) {
+                    document.getElementById('submitBtn').innerText = "Mettre à jour mes choix";
+                    document.getElementById('nom').value = me[0];
+                    document.getElementById('autre_apport').value = me[3];
+                    document.getElementById('peche').value = me[4];
+                    me[1].split(',').forEach(v => { let el = document.querySelector(`input[name="jours"][value="${v.trim()}"]`); if(el) el.checked = true; });
+                    me[2].split(',').forEach(v => { let el = document.querySelector(`input[name="boissons"][value="${v.trim()}"]`); if(el) el.checked = true; });
                 }
 
-                if(data.length === 0) {
-                    container.innerHTML = "Personne pour l'instant...";
-                    return;
-                }
+                if(data.length === 0) { container.innerHTML = "<p class='text-slate-400 text-center font-bold bg-white p-10 rounded-[2rem]'>Personne pour le moment.</p>"; return; }
 
                 container.innerHTML = data.map(p => `
-                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm text-left">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="font-black text-slate-900 text-lg">${p[0]}</span>
-                            <span class="bg-slate-100 text-slate-500 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-tighter">${p[4]}</span>
+                    <div class="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="font-black text-xl text-slate-900">${p[0]}</h3>
+                                <p class="text-[10px] font-black text-blue-500 uppercase tracking-widest mt-1">${p[4]}</p>
+                            </div>
                         </div>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            ${p[1].split(',').filter(j => j).map(j => `<span class="bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-lg uppercase italic">${j.trim()}</span>`).join('')}
+                        <div class="flex flex-wrap gap-2 mb-4 italic">
+                            ${p[1].split(',').filter(j => j).map(j => `<span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">${j.trim()}</span>`).join('')}
                         </div>
                         <div class="bg-slate-50 p-4 rounded-2xl">
-                            <p class="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Logistique :</p>
-                            <p class="text-sm font-bold text-slate-700">
-                                ${p[2] ? `🍺 <span class="text-blue-600 mr-2">${p[2]}</span>` : ''}
-                                ${p[3] ? `<span class="block mt-1 text-slate-500 italic">+ ${p[3]}</span>` : ''}
-                                ${!p[2] && !p[3] ? 'Pas d\'apport spécifié' : ''}
+                            <p class="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Apporte :</p>
+                            <p class="text-xs font-bold text-slate-700">
+                                ${p[2] ? `⚡️ <span class="text-blue-600">${p[2]}</span>` : ''}
+                                ${p[3] ? `<span class="block mt-1">+ ${p[3]}</span>` : ''}
+                                ${!p[2] && !p[3] ? 'Pas encore décidé' : ''}
                             </p>
                         </div>
                     </div>
@@ -152,8 +139,7 @@
         document.getElementById('mainForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            const originalText = btn.innerText;
-            btn.disabled = true; btn.innerText = "ENVOI EN COURS...";
+            btn.disabled = true; btn.innerText = "Synchronisation...";
 
             const payload = {
                 userId: userId,
@@ -164,13 +150,8 @@
                 peche: document.getElementById('peche').value
             };
 
-            try {
-                await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-                location.reload();
-            } catch (err) {
-                alert("Erreur lors de l'envoi. Réessaie !");
-                btn.disabled = false; btn.innerText = originalText;
-            }
+            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+            location.reload();
         });
 
         loadParticipants();
