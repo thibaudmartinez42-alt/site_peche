@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         dialog::backdrop { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
-        /* Cache la petite flèche native par défaut des navigateurs pour les menus déroulants */
         summary::-webkit-details-marker { display: none; }
     </style>
 </head>
@@ -15,17 +14,11 @@
 
     <header class="max-w-md mx-auto text-center py-12 px-4">
         <h1 class="text-5xl font-black italic tracking-tighter text-blue-600">LE WEEK-END</h1>
-        <p class="text-slate-400 font-bold uppercase tracking-widest text-xs mt-2">Logistique, Présences & Menu</p>
+        <p class="text-slate-400 font-bold uppercase tracking-widest text-xs mt-2">Logistique & Présences</p>
     </header>
 
     <main class="max-w-md mx-auto bg-white rounded-[3rem] shadow-2xl shadow-blue-100 p-8 border border-slate-100 relative">
         
-        <!-- INFO BARBECUE -->
-        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-800 p-4 rounded-2xl mb-8 flex items-start shadow-sm">
-            <span class="text-2xl mr-3">🔥</span>
-            <p class="text-sm font-bold">À NOTER : Préparez vos estomacs, il y aura un Barbecue à CHAQUE repas ! 🥩🌭</p>
-        </div>
-
         <form id="mainForm" class="space-y-6">
             <input type="hidden" id="userId">
             
@@ -54,7 +47,7 @@
                 </div>
             </div>
 
-            <!-- PÊCHE (Remonté ici pour la clarté) -->
+            <!-- PÊCHE -->
             <div>
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Style de Pêche</label>
                 <select id="peche" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 font-bold text-slate-700 outline-none focus:border-blue-500 transition-all appearance-none">
@@ -67,8 +60,8 @@
 
             <div class="h-px bg-slate-100 my-8"></div> <!-- Séparateur -->
 
-            <!-- ENCART 1 : CHOIX DES REPAS -->
-            <details class="group bg-orange-50 border-2 border-orange-100 rounded-2xl p-4 transition-all open:bg-white open:border-slate-200 open:shadow-lg">
+            <!-- ENCART 1 : CHOIX DES REPAS (Désactivé pour l'instant avec la classe "hidden") -->
+            <details class="hidden group bg-orange-50 border-2 border-orange-100 rounded-2xl p-4 transition-all open:bg-white open:border-slate-200 open:shadow-lg">
                 <summary class="list-none flex justify-between items-center cursor-pointer outline-none font-black text-orange-600 uppercase tracking-widest text-[10px]">
                     <span class="flex items-center"><span class="text-xl mr-2">🍔</span> Le Menu & Accompagnements</span>
                     <span class="text-lg transition-transform group-open:rotate-180">🔽</span>
@@ -149,12 +142,11 @@
     </section>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoSz59AeHo88Z3BEUB0uDZs26TKi7brdilBRqkbk8wlEo_SyM8bUUk0u5XuMJaF-s/exec"; // ⚠️ A MODIFIER
+        const SCRIPT_URL = "TON_URL_GOOGLE_SCRIPT_ICI"; // ⚠️ A MODIFIER
 
         let userId = localStorage.getItem('weekend_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
         localStorage.setItem('weekend_user_id', userId);
 
-        // --- GESTION DE LA LISTE D'APPORTS DYNAMIQUE ---
         let mesApports = [];
 
         function renderApports() {
@@ -186,7 +178,6 @@
             }
         });
 
-        // Permet d'ajouter en appuyant sur "Entrée" sans envoyer le formulaire entier
         document.getElementById('nouvel_apport').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault(); 
@@ -196,7 +187,6 @@
 
         renderApports();
 
-        // --- CHARGEMENT DES DONNÉES ---
         async function loadParticipants() {
             try {
                 const res = await fetch(SCRIPT_URL);
@@ -250,7 +240,8 @@
                             </div>
                         </div>
 
-                        <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100">
+                        <!-- L'affichage des repas Miam (Désactivé pour l'instant avec la classe "hidden") -->
+                        <div class="hidden bg-orange-50 p-4 rounded-2xl border border-orange-100">
                             <p class="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-1">Miam :</p>
                             <p class="text-xs font-bold text-slate-700">
                                 ${p[5] ? `🥗 <span class="text-orange-600">${p[5]}</span>` : 'Pas de préférence salade'}
@@ -262,7 +253,6 @@
             } catch(e) { console.error(e); }
         }
 
-        // --- ENVOI DU FORMULAIRE ---
         document.getElementById('mainForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
