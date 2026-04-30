@@ -3,103 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week-end Entre Amis</title>
+    <title>Organisation Week-end 🏕️</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-50 min-h-screen font-sans p-4">
+<body class="bg-slate-100 min-h-screen font-sans pb-10">
 
-    <header class="max-w-md mx-auto text-center py-8">
-        <h1 class="text-3xl font-bold text-slate-800">Week-end 3 Jours 🏕️</h1>
-        <p class="text-slate-500 mt-2">Dis-nous quand tu viens et ce que tu ramènes !</p>
+    <header class="max-w-md mx-auto text-center py-8 px-4">
+        <h1 class="text-3xl font-extrabold text-slate-900 italic">LE WEEK-END 🍻</h1>
+        <p class="text-slate-600 mt-2">Remplis ça proprement, on compte sur toi !</p>
     </header>
 
-    <main class="max-w-md mx-auto bg-white rounded-2xl shadow-sm p-6 border border-slate-100">
-        <form id="presenceForm" class="space-y-4">
+    <main class="max-w-md mx-auto bg-white rounded-3xl shadow-xl p-6 border border-slate-200">
+        <form id="mainForm" class="space-y-6">
+            
+            <!-- NOM -->
             <div>
-                <label class="block text-sm font-medium text-slate-700">Ton petit nom</label>
-                <input type="text" id="nom" required class="mt-1 block w-full rounded-lg border-slate-200 bg-slate-50 p-2.5 outline-blue-500 border">
+                <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide">Ton Nom / Pseudo</label>
+                <input type="text" id="nom" required class="mt-2 block w-full rounded-xl border-slate-200 bg-slate-50 p-3 outline-blue-500 border shadow-sm">
             </div>
 
-            <!-- Remplace la section Présence par celle-ci -->
+            <!-- PRÉSENCE -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-2">Ta présence (Cocher les jours)</label>
+                <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-3">Ta présence</label>
                 <div class="grid grid-cols-2 gap-2">
-                    <label class="flex items-center p-3 bg-slate-50 border rounded-lg cursor-pointer">
-                        <input type="checkbox" name="jours" value="Jeudi" class="w-4 h-4 text-blue-600">
-                        <span class="ml-2 text-sm">Jeudi</span>
+                    <label class="flex items-center p-3 bg-white border rounded-xl cursor-pointer hover:bg-blue-50 transition">
+                        <input type="checkbox" name="jours" value="Jeudi" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="ml-3 text-sm font-medium">Jeudi</span>
                     </label>
-                    <label class="flex items-center p-3 bg-slate-50 border rounded-lg cursor-pointer">
-                        <input type="checkbox" name="jours" value="Vendredi" class="w-4 h-4 text-blue-600">
-                        <span class="ml-2 text-sm">Vendredi</span>
+                    <label class="flex items-center p-3 bg-white border rounded-xl cursor-pointer hover:bg-blue-50 transition">
+                        <input type="checkbox" name="jours" value="Vendredi" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="ml-3 text-sm font-medium">Vendredi</span>
                     </label>
-                    <label class="flex items-center p-3 bg-slate-50 border rounded-lg cursor-pointer">
-                        <input type="checkbox" name="jours" value="Samedi" class="w-4 h-4 text-blue-600">
-                        <span class="ml-2 text-sm">Samedi</span>
+                    <label class="flex items-center p-3 bg-white border rounded-xl cursor-pointer hover:bg-blue-50 transition">
+                        <input type="checkbox" name="jours" value="Samedi" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="ml-3 text-sm font-medium">Samedi</span>
                     </label>
-                    <label class="flex items-center p-3 bg-slate-50 border rounded-lg cursor-pointer">
-                        <input type="checkbox" name="jours" value="Dimanche" class="w-4 h-4 text-blue-600">
-                        <span class="ml-2 text-sm">Dimanche</span>
+                    <label class="flex items-center p-3 bg-white border rounded-xl cursor-pointer hover:bg-blue-50 transition">
+                        <input type="checkbox" name="jours" value="Dimanche" class="w-5 h-5 text-blue-600 rounded">
+                        <span class="ml-3 text-sm font-medium">Dimanche</span>
                     </label>
                 </div>
             </div>
 
+            <!-- BOISSONS -->
             <div>
-                <label class="block text-sm font-medium text-slate-700">Ce que tu apportes (boisson, bouffe...)</label>
-                <textarea id="apporte" rows="2" class="mt-1 block w-full rounded-lg border-slate-200 bg-slate-50 p-2.5 border" placeholder="Ex: Pack de bières et chips"></textarea>
+                <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-3">Ce que tu ramènes (Boissons)</label>
+                <div class="space-y-2">
+                    <label class="flex items-center p-2"><input type="checkbox" name="boissons" value="Bière" class="w-4 h-4 text-orange-500"> <span class="ml-3">Pack de Bières 🍺</span></label>
+                    <label class="flex items-center p-2"><input type="checkbox" name="boissons" value="Captain" class="w-4 h-4 text-red-600"> <span class="ml-3">Captain Morgan 🏴‍☠️</span></label>
+                    <label class="flex items-center p-2"><input type="checkbox" name="boissons" value="Get27" class="w-4 h-4 text-green-600"> <span class="ml-3">Get 27 🍃</span></label>
+                    <input type="text" id="autre_apport" placeholder="Autre chose ? (Bouffe, autre alcool...)" class="mt-1 block w-full rounded-xl border-slate-200 bg-slate-50 p-3 border text-sm">
+                </div>
             </div>
 
-            <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition">
-                Valider ma présence
+            <!-- PÊCHE -->
+            <div>
+                <label class="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-3">Côté Pêche 🎣</label>
+                <select id="peche" class="mt-1 block w-full rounded-xl border-slate-200 bg-slate-50 p-3 border font-medium">
+                    <option value="Aucune">Je ne pêche pas</option>
+                    <option value="Carpe">Carpe 🌽</option>
+                    <option value="Friture">Friture 🐟</option>
+                    <option value="Carnassier">Carnassier 🐊</option>
+                </select>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl hover:bg-blue-600 transition-all shadow-lg transform active:scale-95">
+                VALIDER MON INSCRIPTION
             </button>
         </form>
     </main>
 
-    <section class="max-w-md mx-auto mt-8">
-        <h2 class="text-xl font-semibold text-slate-800 mb-4">Qui vient ?</h2>
-        <div id="listeParticipants" class="space-y-3">
-            <p class="text-slate-400 text-sm">Chargement de la liste...</p>
+    <!-- LISTE DES POTES -->
+    <section class="max-w-md mx-auto mt-10 px-4">
+        <h2 class="text-2xl font-black text-slate-800 mb-6 flex items-center">
+            <span class="bg-blue-600 text-white px-3 py-1 rounded-lg mr-3 text-sm">LIVE</span> 
+            LES INSCRITS
+        </h2>
+        <div id="listeParticipants" class="space-y-4">
+            <!-- Injecté par JS -->
         </div>
     </section>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzaDd_p_wgVd9prdLtCTncPvb6SR__GRo4O9NP15tpiiRRArwX0znKUDVFmFaqVHd_yig/exec";
+        const SCRIPT_URL = "TON_URL_ICI";
 
-        // Charger la liste au démarrage
         async function loadParticipants() {
             const res = await fetch(SCRIPT_URL);
             const data = await res.json();
             const container = document.getElementById('listeParticipants');
             container.innerHTML = data.map(p => `
-                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                    <div class="font-bold text-slate-800">${p[0]}</div>
-                    <div class="text-xs text-blue-600 font-medium uppercase mt-1">${p[1]}</div>
-                    <div class="text-sm text-slate-600 mt-1 italic">" ${p[2] || 'Rien pour l\'instant'} "</div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <span class="font-bold text-lg text-slate-900">${p[0]}</span>
+                        <span class="text-[10px] bg-slate-100 px-2 py-1 rounded-full font-bold text-slate-500 uppercase tracking-tighter">${p[4]}</span>
+                    </div>
+                    <div class="mt-2 flex flex-wrap gap-1">
+                        ${p[1].split(',').map(j => `<span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-md font-bold">${j.trim()}</span>`).join('')}
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-50">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Apporte :</p>
+                        <p class="text-sm text-slate-700 mt-1 font-medium">
+                            ${p[2] ? `🥤 <span class="text-blue-600">${p[2]}</span>` : ''} 
+                            ${p[3] ? `<br>📦 ${p[3]}` : ''}
+                            ${!p[2] && !p[3] ? 'Rien pour le moment' : ''}
+                        </p>
+                    </div>
                 </div>
             `).join('');
         }
 
-        // Envoyer le formulaire
-        document.getElementById('presenceForm').addEventListener('submit', async (e) => {
+        document.getElementById('mainForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerText = "Envoi en cours...";
+            btn.disabled = true; btn.innerText = "Enregistrement...";
 
-            // Dans ton événement 'submit', remplace la création du payload par ceci :
-            const joursCoches = Array.from(document.querySelectorAll('input[name="jours"]:checked')).map(el => el.value);
-            
             const payload = {
                 nom: document.getElementById('nom').value,
-                presence: joursCoches.join(', '), // Enregistre "Jeudi, Vendredi"
-                apporte: document.getElementById('apporte').value
+                presence: Array.from(document.querySelectorAll('input[name="jours"]:checked')).map(el => el.value).join(', '),
+                boissons: Array.from(document.querySelectorAll('input[name="boissons"]:checked')).map(el => el.value).join(', '),
+                autre: document.getElementById('autre_apport').value,
+                peche: document.getElementById('peche').value
             };
 
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            });
-
-            location.reload(); // Recharge pour voir la liste à jour
+            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+            location.reload();
         });
 
         loadParticipants();
