@@ -5,15 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week-end Organisation 🏕️</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Gère l'apparition douce de la fenêtre de dialogue */
+        dialog::backdrop { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
+    </style>
 </head>
 <body class="bg-slate-50 min-h-screen pb-10 font-sans text-slate-900">
 
     <header class="max-w-md mx-auto text-center py-12 px-4">
         <h1 class="text-5xl font-black italic tracking-tighter text-blue-600">LE WEEK-END</h1>
-        <p class="text-slate-400 font-bold uppercase tracking-widest text-xs mt-2">Logistique & Présences</p>
+        <p class="text-slate-400 font-bold uppercase tracking-widest text-xs mt-2">Logistique, Présences & Menu</p>
     </header>
 
-    <main class="max-w-md mx-auto bg-white rounded-[3rem] shadow-2xl shadow-blue-100 p-8 border border-slate-100">
+    <main class="max-w-md mx-auto bg-white rounded-[3rem] shadow-2xl shadow-blue-100 p-8 border border-slate-100 relative">
+        
+        <!-- INFO BARBECUE -->
+        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-800 p-4 rounded-2xl mb-8 flex items-start shadow-sm">
+            <span class="text-2xl mr-3">🔥</span>
+            <p class="text-sm font-bold">À NOTER : Préparez vos estomacs, il y aura un Barbecue à CHAQUE repas ! 🥩🌭</p>
+        </div>
+
         <form id="mainForm" class="space-y-8">
             <input type="hidden" id="userId">
             
@@ -28,37 +39,75 @@
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">Tes Jours</label>
                 <div class="grid grid-cols-2 gap-3">
                     <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
-                        <input type="checkbox" name="jours" value="Jeudi" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
-                        <span class="ml-3">Jeudi</span>
+                        <input type="checkbox" name="jours" value="Jeudi" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Jeudi</span>
                     </label>
                     <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
-                        <input type="checkbox" name="jours" value="Vendredi" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
-                        <span class="ml-3">Vendredi</span>
+                        <input type="checkbox" name="jours" value="Vendredi" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Vendredi</span>
                     </label>
                     <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
-                        <input type="checkbox" name="jours" value="Samedi" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
-                        <span class="ml-3">Samedi</span>
+                        <input type="checkbox" name="jours" value="Samedi" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Samedi</span>
                     </label>
                     <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
-                        <input type="checkbox" name="jours" value="Dimanche" class="w-5 h-5 rounded text-blue-600 border-none bg-slate-200">
-                        <span class="ml-3">Dimanche</span>
+                        <input type="checkbox" name="jours" value="Dimanche" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Dimanche</span>
                     </label>
                 </div>
+            </div>
+
+            <!-- CHOIX DES REPAS -->
+            <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">Choix des accompagnements</label>
+                <p class="text-xs text-slate-500 mb-3 ml-1 italic">Maintiens appuyé sur une salade pour voir la recette !</p>
+                <div class="space-y-2">
+                    
+                    <!-- Salade Pâtes avec Infobulle -->
+                    <div class="relative group">
+                        <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                            <input type="checkbox" name="miam" value="Pâtes" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Pâtes & Mozza 🍝</span>
+                        </label>
+                        <div class="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">
+                            Pâtes penne, sauce pesto, tomates cerises, mozzarella, jambon cru.
+                        </div>
+                    </div>
+
+                    <!-- Salade Riz avec Infobulle -->
+                    <div class="relative group">
+                        <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                            <input type="checkbox" name="miam" value="Riz" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Riz & Emmental 🍚</span>
+                        </label>
+                        <div class="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">
+                            Riz, thon, maïs, emmental en dés, œufs durs.
+                        </div>
+                    </div>
+
+                    <!-- Salade Patates avec Infobulle -->
+                    <div class="relative group">
+                        <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                            <input type="checkbox" name="miam" value="Patates" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Patates (Piémontaise) 🥔</span>
+                        </label>
+                        <div class="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">
+                            Pommes de terre, mozzarella, lardons, oignons rouges, sauce mayo/moutarde.
+                        </div>
+                    </div>
+
+                    <!-- Frites -->
+                    <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                        <input type="checkbox" name="miam" value="Frites" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Frites 🍟</span>
+                    </label>
+                </div>
+
+                <!-- Bouton pour ouvrir la modale de proposition -->
+                <button type="button" onclick="document.getElementById('modalRepas').showModal()" class="mt-4 w-full bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200 transition-all text-sm border-2 border-dashed border-slate-300">
+                    💡 Proposer une autre idée de repas
+                </button>
             </div>
 
             <!-- BOISSONS -->
             <div>
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">L'Apéro</label>
                 <div class="space-y-2">
-                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium">
-                        <input type="checkbox" name="boissons" value="Bière" class="w-5 h-5 text-orange-500"> <span class="ml-3">Bière 🍺</span>
-                    </label>
-                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium">
-                        <input type="checkbox" name="boissons" value="Captain" class="w-5 h-5 text-red-600"> <span class="ml-3">Captain Morgan 🏴‍☠️</span>
-                    </label>
-                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium">
-                        <input type="checkbox" name="boissons" value="Get27" class="w-5 h-5 text-green-600"> <span class="ml-3">Get 27 🍃</span>
-                    </label>
+                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium"><input type="checkbox" name="boissons" value="Bière" class="w-5 h-5 text-orange-500"> <span class="ml-3">Bière 🍺</span></label>
+                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium"><input type="checkbox" name="boissons" value="Captain" class="w-5 h-5 text-red-600"> <span class="ml-3">Captain Morgan 🏴‍☠️</span></label>
+                    <label class="flex items-center px-4 py-2 bg-white rounded-xl border border-slate-100 shadow-sm font-medium"><input type="checkbox" name="boissons" value="Get27" class="w-5 h-5 text-green-600"> <span class="ml-3">Get 27 🍃</span></label>
                     <input type="text" id="autre_apport" placeholder="Autre chose ? (Pain, charbon, chips...)" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 outline-none focus:border-blue-500 focus:bg-white transition-all font-medium mt-2">
                 </div>
             </div>
@@ -80,6 +129,18 @@
         </form>
     </main>
 
+    <!-- FENÊTRE DE DIALOGUE (MODAL) POUR PROPOSITION DE REPAS -->
+    <dialog id="modalRepas" class="rounded-[2rem] p-6 w-11/12 max-w-sm backdrop:bg-slate-900/50 shadow-2xl border-none">
+        <h3 class="font-black text-xl text-slate-800 mb-2">Une idée de repas ? 👨‍🍳</h3>
+        <p class="text-xs text-red-500 font-bold mb-4 bg-red-50 p-2 rounded-lg">
+            ⚠️ Attention : Ça doit être ultra facile et rapide à préparer ! Pas de bœuf bourguignon qui mijote 4h.
+        </p>
+        <textarea id="proposition_repas" rows="3" class="w-full border-2 border-slate-100 bg-slate-50 rounded-xl p-3 mb-4 outline-blue-500" placeholder="Ex: Croque-monsieurs géants, Fajitas..."></textarea>
+        <div class="flex justify-end space-x-2">
+            <button type="button" onclick="document.getElementById('modalRepas').close()" class="px-5 py-3 bg-blue-600 text-white font-bold rounded-xl w-full">C'est noté !</button>
+        </div>
+    </dialog>
+
     <section class="max-w-md mx-auto mt-16 px-6">
         <h2 class="text-3xl font-black text-slate-900 mb-8 tracking-tighter">La Tribu <span id="count" class="text-blue-600"></span></h2>
         <div id="listeParticipants" class="space-y-6">
@@ -88,7 +149,7 @@
     </section>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoSz59AeHo88Z3BEUB0uDZs26TKi7brdilBRqkbk8wlEo_SyM8bUUk0u5XuMJaF-s/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoSz59AeHo88Z3BEUB0uDZs26TKi7brdilBRqkbk8wlEo_SyM8bUUk0u5XuMJaF-s/exec"; // ⚠️ A MODIFIER
         
         let userId = localStorage.getItem('weekend_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
         localStorage.setItem('weekend_user_id', userId);
@@ -100,14 +161,18 @@
                 const container = document.getElementById('listeParticipants');
                 document.getElementById('count').innerText = data.length > 0 ? `(${data.length})` : "";
                 
-                const me = data.find(p => p[5] === userId);
+                // Pré-remplissage
+                const me = data.find(p => p[7] === userId); // L'ID est maintenant à l'index 7 (colonne 8)
                 if (me) {
                     document.getElementById('submitBtn').innerText = "Mettre à jour mes choix";
-                    document.getElementById('nom').value = me[0];
-                    document.getElementById('autre_apport').value = me[3];
-                    document.getElementById('peche').value = me[4];
-                    me[1].split(',').forEach(v => { let el = document.querySelector(`input[name="jours"][value="${v.trim()}"]`); if(el) el.checked = true; });
-                    me[2].split(',').forEach(v => { let el = document.querySelector(`input[name="boissons"][value="${v.trim()}"]`); if(el) el.checked = true; });
+                    document.getElementById('nom').value = me[0] || '';
+                    document.getElementById('autre_apport').value = me[3] || '';
+                    document.getElementById('peche').value = me[4] || 'Aucune';
+                    document.getElementById('proposition_repas').value = me[6] || ''; // Proposition
+                    
+                    if(me[1]) me[1].split(',').forEach(v => { let el = document.querySelector(`input[name="jours"][value="${v.trim()}"]`); if(el) el.checked = true; });
+                    if(me[2]) me[2].split(',').forEach(v => { let el = document.querySelector(`input[name="boissons"][value="${v.trim()}"]`); if(el) el.checked = true; });
+                    if(me[5]) me[5].split(',').forEach(v => { let el = document.querySelector(`input[name="miam"][value="${v.trim()}"]`); if(el) el.checked = true; });
                 }
 
                 if(data.length === 0) { container.innerHTML = "<p class='text-slate-400 text-center font-bold bg-white p-10 rounded-[2rem]'>Personne pour le moment.</p>"; return; }
@@ -123,10 +188,17 @@
                         <div class="flex flex-wrap gap-2 mb-4 italic">
                             ${p[1].split(',').filter(j => j).map(j => `<span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">${j.trim()}</span>`).join('')}
                         </div>
-                        <div class="bg-slate-50 p-4 rounded-2xl">
-                            <p class="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Apporte :</p>
+                        <div class="bg-slate-50 p-4 rounded-2xl mb-2">
+                            <p class="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Miam :</p>
                             <p class="text-xs font-bold text-slate-700">
-                                ${p[2] ? `⚡️ <span class="text-blue-600">${p[2]}</span>` : ''}
+                                ${p[5] ? `🥗 <span class="text-orange-600">${p[5]}</span>` : 'Pas de préférence salade'}
+                                ${p[6] ? `<span class="block mt-2 text-slate-500 italic bg-white p-2 rounded-lg border">💡 Suggère : ${p[6]}</span>` : ''}
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl">
+                            <p class="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">Boissons & Co :</p>
+                            <p class="text-xs font-bold text-slate-700">
+                                ${p[2] ? `🍺 <span class="text-blue-600 mr-2">${p[2]}</span>` : ''}
                                 ${p[3] ? `<span class="block mt-1">+ ${p[3]}</span>` : ''}
                                 ${!p[2] && !p[3] ? 'Pas encore décidé' : ''}
                             </p>
@@ -147,7 +219,9 @@
                 presence: Array.from(document.querySelectorAll('input[name="jours"]:checked')).map(el => el.value).join(', '),
                 boissons: Array.from(document.querySelectorAll('input[name="boissons"]:checked')).map(el => el.value).join(', '),
                 autre: document.getElementById('autre_apport').value,
-                peche: document.getElementById('peche').value
+                peche: document.getElementById('peche').value,
+                miam: Array.from(document.querySelectorAll('input[name="miam"]:checked')).map(el => el.value).join(', '),
+                proposition: document.getElementById('proposition_repas').value
             };
 
             await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
