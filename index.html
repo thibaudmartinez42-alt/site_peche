@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         dialog::backdrop { background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); }
+        /* Cache la petite flèche native par défaut des navigateurs pour les menus déroulants */
+        summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen pb-10 font-sans text-slate-900">
@@ -24,7 +26,7 @@
             <p class="text-sm font-bold">À NOTER : Préparez vos estomacs, il y aura un Barbecue à CHAQUE repas ! 🥩🌭</p>
         </div>
 
-        <form id="mainForm" class="space-y-8">
+        <form id="mainForm" class="space-y-6">
             <input type="hidden" id="userId">
             
             <!-- NOM -->
@@ -52,54 +54,7 @@
                 </div>
             </div>
 
-            <!-- CHOIX DES REPAS -->
-            <div>
-                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">Choix des accompagnements</label>
-                <p class="text-xs text-slate-500 mb-3 ml-1 italic">Maintiens appuyé sur une salade pour voir la recette !</p>
-                <div class="space-y-2">
-                    <div class="relative group">
-                        <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
-                            <input type="checkbox" name="miam" value="Pâtes" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Pâtes & Mozza 🍝</span>
-                        </label>
-                        <div class="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">Pâtes penne, sauce pesto, tomates cerises, mozzarella, jambon cru.</div>
-                    </div>
-                    <div class="relative group">
-                        <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
-                            <input type="checkbox" name="miam" value="Riz" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Riz & Emmental 🍚</span>
-                        </label>
-                        <div class="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">Riz, thon, maïs, emmental en dés, œufs durs.</div>
-                    </div>
-                    <div class="relative group">
-                        <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
-                            <input type="checkbox" name="miam" value="Patates" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Patates (Piémontaise) 🥔</span>
-                        </label>
-                        <div class="absolute bottom-full left-0 mb-1 hidden group-hover:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">Pommes de terre, mozzarella, lardons, oignons rouges, sauce mayo/moutarde.</div>
-                    </div>
-                    <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
-                        <input type="checkbox" name="miam" value="Frites" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Frites 🍟</span>
-                    </label>
-                </div>
-                <button type="button" onclick="document.getElementById('modalRepas').showModal()" class="mt-4 w-full bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200 transition-all text-sm border-2 border-dashed border-slate-300">
-                    💡 Proposer une autre idée de repas
-                </button>
-            </div>
-
-            <!-- APPORTS LIBRES (NOUVEAU) -->
-            <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
-                <label class="block text-[10px] font-black text-blue-500 uppercase tracking-widest mb-3 ml-1">Ce que tu ramènes (Apéro, Bouffe, Matos...)</label>
-                
-                <div class="flex space-x-2 mb-4">
-                    <input type="text" id="nouvel_apport" placeholder="Ex: Pack de bières, Chips..." class="flex-1 rounded-xl border-2 border-white bg-white p-3 outline-none focus:border-blue-500 shadow-sm font-medium text-sm">
-                    <button type="button" id="btnAjouterApport" class="bg-blue-600 text-white font-bold px-4 rounded-xl shadow-sm hover:bg-blue-700 active:scale-95 transition-all text-sm">Ajouter</button>
-                </div>
-                
-                <!-- Zone où s'affichent les tags ajoutés -->
-                <div id="zone_mes_apports" class="flex flex-wrap gap-2">
-                    <!-- Les éléments s'ajouteront ici -->
-                </div>
-            </div>
-
-            <!-- PÊCHE -->
+            <!-- PÊCHE (Remonté ici pour la clarté) -->
             <div>
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Style de Pêche</label>
                 <select id="peche" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 font-bold text-slate-700 outline-none focus:border-blue-500 transition-all appearance-none">
@@ -110,7 +65,67 @@
                 </select>
             </div>
 
-            <button type="submit" id="submitBtn" class="w-full bg-slate-900 text-white font-black py-6 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl shadow-slate-300 active:scale-95 uppercase tracking-widest text-sm">
+            <div class="h-px bg-slate-100 my-8"></div> <!-- Séparateur -->
+
+            <!-- ENCART 1 : CHOIX DES REPAS -->
+            <details class="group bg-orange-50 border-2 border-orange-100 rounded-2xl p-4 transition-all open:bg-white open:border-slate-200 open:shadow-lg">
+                <summary class="list-none flex justify-between items-center cursor-pointer outline-none font-black text-orange-600 uppercase tracking-widest text-[10px]">
+                    <span class="flex items-center"><span class="text-xl mr-2">🍔</span> Le Menu & Accompagnements</span>
+                    <span class="text-lg transition-transform group-open:rotate-180">🔽</span>
+                </summary>
+                
+                <div class="mt-4 pt-4 border-t border-orange-100">
+                    <p class="text-xs text-slate-500 mb-3 italic">Maintiens appuyé sur une salade pour voir la recette !</p>
+                    <div class="space-y-2">
+                        <div class="relative group/tooltip">
+                            <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                                <input type="checkbox" name="miam" value="Pâtes" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Pâtes & Mozza 🍝</span>
+                            </label>
+                            <div class="absolute bottom-full left-0 mb-1 hidden group-hover/tooltip:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">Pâtes penne, sauce pesto, tomates cerises, mozzarella, jambon cru.</div>
+                        </div>
+                        <div class="relative group/tooltip">
+                            <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                                <input type="checkbox" name="miam" value="Riz" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Riz & Emmental 🍚</span>
+                            </label>
+                            <div class="absolute bottom-full left-0 mb-1 hidden group-hover/tooltip:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">Riz, thon, maïs, emmental en dés, œufs durs.</div>
+                        </div>
+                        <div class="relative group/tooltip">
+                            <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                                <input type="checkbox" name="miam" value="Patates" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Salade Patates (Piémontaise) 🥔</span>
+                            </label>
+                            <div class="absolute bottom-full left-0 mb-1 hidden group-hover/tooltip:block bg-slate-800 text-white text-[10px] p-2 rounded-lg w-full z-10 font-bold shadow-lg">Pommes de terre, mozzarella, lardons, oignons rouges, sauce mayo/moutarde.</div>
+                        </div>
+                        <label class="flex items-center px-4 py-3 bg-white rounded-xl border border-slate-100 shadow-sm font-medium cursor-pointer">
+                            <input type="checkbox" name="miam" value="Frites" class="w-5 h-5 text-yellow-500"> <span class="ml-3">Frites 🍟</span>
+                        </label>
+                    </div>
+                    <button type="button" onclick="document.getElementById('modalRepas').showModal()" class="mt-4 w-full bg-slate-50 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-100 transition-all text-sm border-2 border-dashed border-slate-300">
+                        💡 Proposer une autre idée de repas
+                    </button>
+                </div>
+            </details>
+
+            <!-- ENCART 2 : CE QUE TU RAMÈNES -->
+            <details class="group bg-blue-50 border-2 border-blue-100 rounded-2xl p-4 transition-all open:bg-white open:border-slate-200 open:shadow-lg">
+                <summary class="list-none flex justify-between items-center cursor-pointer outline-none font-black text-blue-600 uppercase tracking-widest text-[10px]">
+                    <span class="flex items-center"><span class="text-xl mr-2">🎒</span> Ce que tu ramènes (Liste)</span>
+                    <span class="text-lg transition-transform group-open:rotate-180">🔽</span>
+                </summary>
+                
+                <div class="mt-4 pt-4 border-t border-blue-100">
+                    <p class="text-xs text-slate-500 mb-3 italic">Ajoute tes apports au fur et à mesure (Boissons, pain, jeux...)</p>
+                    <div class="flex space-x-2 mb-4">
+                        <input type="text" id="nouvel_apport" placeholder="Ex: Pack de bières, Mölkky..." class="flex-1 rounded-xl border-2 border-slate-200 bg-slate-50 p-3 outline-none focus:border-blue-500 shadow-sm font-medium text-sm transition-all focus:bg-white">
+                        <button type="button" id="btnAjouterApport" class="bg-blue-600 text-white font-bold px-4 rounded-xl shadow-sm hover:bg-blue-700 active:scale-95 transition-all text-sm">Ajouter</button>
+                    </div>
+                    
+                    <div id="zone_mes_apports" class="flex flex-wrap gap-2">
+                        <!-- Les éléments s'ajouteront ici -->
+                    </div>
+                </div>
+            </details>
+
+            <button type="submit" id="submitBtn" class="w-full bg-slate-900 text-white font-black py-6 rounded-[2rem] hover:bg-slate-800 transition-all shadow-xl shadow-slate-300 active:scale-95 uppercase tracking-widest text-sm mt-4">
                 Valider l'inscription
             </button>
         </form>
@@ -120,9 +135,9 @@
     <dialog id="modalRepas" class="rounded-[2rem] p-6 w-11/12 max-w-sm backdrop:bg-slate-900/50 shadow-2xl border-none">
         <h3 class="font-black text-xl text-slate-800 mb-2">Une idée de repas ? 👨‍🍳</h3>
         <p class="text-xs text-red-500 font-bold mb-4 bg-red-50 p-2 rounded-lg">⚠️ Attention : Ça doit être ultra facile et rapide à préparer !</p>
-        <textarea id="proposition_repas" rows="3" class="w-full border-2 border-slate-100 bg-slate-50 rounded-xl p-3 mb-4 outline-blue-500" placeholder="Ex: Croque-monsieurs géants..."></textarea>
+        <textarea id="proposition_repas" rows="3" class="w-full border-2 border-slate-100 bg-slate-50 rounded-xl p-3 mb-4 outline-blue-500 font-medium" placeholder="Ex: Croque-monsieurs géants..."></textarea>
         <div class="flex justify-end space-x-2">
-            <button type="button" onclick="document.getElementById('modalRepas').close()" class="px-5 py-3 bg-blue-600 text-white font-bold rounded-xl w-full">C'est noté !</button>
+            <button type="button" onclick="document.getElementById('modalRepas').close()" class="px-5 py-3 bg-blue-600 text-white font-bold rounded-xl w-full hover:bg-blue-700">C'est noté !</button>
         </div>
     </dialog>
 
@@ -145,13 +160,13 @@
         function renderApports() {
             const zone = document.getElementById('zone_mes_apports');
             if(mesApports.length === 0) {
-                zone.innerHTML = "<span class='text-xs text-blue-400 italic'>Rien ajouté pour le moment...</span>";
+                zone.innerHTML = "<span class='text-xs text-slate-400 italic font-medium'>Rien ajouté pour le moment...</span>";
                 return;
             }
             zone.innerHTML = mesApports.map((apport, index) => `
                 <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center shadow-sm">
                     ${apport}
-                    <button type="button" onclick="supprimerApport(${index})" class="ml-2 text-blue-200 hover:text-white focus:outline-none">✖</button>
+                    <button type="button" onclick="supprimerApport(${index})" class="ml-2 text-blue-200 hover:text-white focus:outline-none transition-colors">✖</button>
                 </span>
             `).join('');
         }
@@ -171,18 +186,17 @@
             }
         });
 
-        // Permet d'ajouter en appuyant sur "Entrée"
+        // Permet d'ajouter en appuyant sur "Entrée" sans envoyer le formulaire entier
         document.getElementById('nouvel_apport').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                e.preventDefault(); // Empêche le formulaire de s'envoyer
+                e.preventDefault(); 
                 document.getElementById('btnAjouterApport').click();
             }
         });
 
-        // Initialisation visuelle
         renderApports();
-        // ------------------------------------------------
 
+        // --- CHARGEMENT DES DONNÉES ---
         async function loadParticipants() {
             try {
                 const res = await fetch(SCRIPT_URL);
@@ -197,7 +211,6 @@
                     document.getElementById('peche').value = me[4] || 'Aucune';
                     document.getElementById('proposition_repas').value = me[6] || '';
                     
-                    // Reconstruire la liste d'apports personnelle
                     const oldBoissons = me[2] ? me[2].split(',').map(s => s.trim()).filter(s => s) : [];
                     const oldAutre = me[3] ? [me[3].trim()] : [];
                     mesApports = [...oldBoissons, ...oldAutre];
@@ -210,7 +223,6 @@
                 if(data.length === 0) { container.innerHTML = "<p class='text-slate-400 text-center font-bold bg-white p-10 rounded-[2rem]'>Personne pour le moment.</p>"; return; }
 
                 container.innerHTML = data.map(p => {
-                    // Combiner l'affichage des anciens champs si certains avaient rempli avant la mise à jour
                     const apportsAffiches = [];
                     if (p[2]) apportsAffiches.push(...p[2].split(',').map(a => a.trim()));
                     if (p[3]) apportsAffiches.push(p[3]);
@@ -250,6 +262,7 @@
             } catch(e) { console.error(e); }
         }
 
+        // --- ENVOI DU FORMULAIRE ---
         document.getElementById('mainForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
@@ -259,8 +272,8 @@
                 userId: userId,
                 nom: document.getElementById('nom').value,
                 presence: Array.from(document.querySelectorAll('input[name="jours"]:checked')).map(el => el.value).join(', '),
-                boissons: mesApports.join(', '), // On envoie toute la liste personnalisée ici
-                autre: "", // On laisse vide car tout est géré par la liste ci-dessus
+                boissons: mesApports.join(', '), 
+                autre: "", 
                 peche: document.getElementById('peche').value,
                 miam: Array.from(document.querySelectorAll('input[name="miam"]:checked')).map(el => el.value).join(', '),
                 proposition: document.getElementById('proposition_repas').value
