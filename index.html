@@ -28,10 +28,10 @@
                 <input type="text" id="nom" required placeholder="Prénom ou Surnom" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 focus:border-blue-500 focus:bg-white outline-none transition-all font-bold">
             </div>
 
-            <!-- PRÉSENCE -->
+            <!-- PRÉSENCE & HEURE D'ARRIVÉE -->
             <div>
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">Tes Jours</label>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-3 mb-3">
                     <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
                         <input type="checkbox" name="jours" value="Jeudi" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Jeudi</span>
                     </label>
@@ -45,6 +45,16 @@
                         <input type="checkbox" name="jours" value="Dimanche" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Dimanche</span>
                     </label>
                 </div>
+                <!-- NOUVEAU : HEURE ARRIVÉE -->
+                <select id="heure_arrivee" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 font-bold text-slate-500 outline-none focus:border-blue-500 transition-all appearance-none cursor-pointer">
+                    <option value="">Heure d'arrivée estimée ? (Optionnel)</option>
+                    <option value="Matin">☀️ Dans la matinée</option>
+                    <option value="Midi">🍽️ Pour manger le midi</option>
+                    <option value="Aprem">🏕️ Dans l'après-midi</option>
+                    <option value="Fin de journée">🌅 Fin de journée (après le boulot)</option>
+                    <option value="Soirée">🌙 Dans la soirée</option>
+                    <option value="Tard">🦉 Tard dans la nuit</option>
+                </select>
             </div>
 
             <!-- PÊCHE -->
@@ -58,9 +68,9 @@
                 </select>
             </div>
 
-            <div class="h-px bg-slate-100 my-8"></div> <!-- Séparateur -->
+            <div class="h-px bg-slate-100 my-8"></div>
 
-            <!-- ENCART 1 : CHOIX DES REPAS (Désactivé pour l'instant avec la classe "hidden") -->
+            <!-- ENCART 1 : CHOIX DES REPAS (Caché avec 'hidden') -->
             <details class="hidden group bg-orange-50 border-2 border-orange-100 rounded-2xl p-4 transition-all open:bg-white open:border-slate-200 open:shadow-lg">
                 <summary class="list-none flex justify-between items-center cursor-pointer outline-none font-black text-orange-600 uppercase tracking-widest text-[10px]">
                     <span class="flex items-center"><span class="text-xl mr-2">🍔</span> Le Menu & Accompagnements</span>
@@ -142,7 +152,7 @@
     </section>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoSz59AeHo88Z3BEUB0uDZs26TKi7brdilBRqkbk8wlEo_SyM8bUUk0u5XuMJaF-s/exec"; // ⚠️ A MODIFIER
+        const SCRIPT_URL = "TON_URL_GOOGLE_SCRIPT_ICI"; // ⚠️ A MODIFIER
 
         let userId = localStorage.getItem('weekend_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
         localStorage.setItem('weekend_user_id', userId);
@@ -194,12 +204,14 @@
                 const container = document.getElementById('listeParticipants');
                 document.getElementById('count').innerText = data.length > 0 ? `(${data.length})` : "";
                 
-                const me = data.find(p => p[7] === userId);
+                // Pré-remplissage avec l'ID maintenant en position 8 (index 8)
+                const me = data.find(p => p[8] === userId);
                 if (me) {
                     document.getElementById('submitBtn').innerText = "Mettre à jour mes choix";
                     document.getElementById('nom').value = me[0] || '';
                     document.getElementById('peche').value = me[4] || 'Aucune';
                     document.getElementById('proposition_repas').value = me[6] || '';
+                    document.getElementById('heure_arrivee').value = me[7] || ''; // Pré-remplit l'heure
                     
                     const oldBoissons = me[2] ? me[2].split(',').map(s => s.trim()).filter(s => s) : [];
                     const oldAutre = me[3] ? [me[3].trim()] : [];
@@ -229,8 +241,9 @@
                                 <p class="text-[10px] font-black text-blue-500 uppercase tracking-widest mt-1">${p[4]}</p>
                             </div>
                         </div>
-                        <div class="flex flex-wrap gap-2 mb-4 italic">
+                        <div class="flex flex-wrap gap-2 mb-4 italic items-center">
                             ${p[1].split(',').filter(j => j).map(j => `<span class="bg-slate-100 text-slate-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">${j.trim()}</span>`).join('')}
+                            ${p[7] ? `<span class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 bg-slate-50 px-2 py-1 rounded-full border border-slate-100 shadow-sm">⏱ ${p[7]}</span>` : ''}
                         </div>
                         
                         <div class="bg-slate-50 p-4 rounded-2xl mb-2 border border-slate-100">
@@ -240,7 +253,6 @@
                             </div>
                         </div>
 
-                        <!-- L'affichage des repas Miam (Désactivé pour l'instant avec la classe "hidden") -->
                         <div class="hidden bg-orange-50 p-4 rounded-2xl border border-orange-100">
                             <p class="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-1">Miam :</p>
                             <p class="text-xs font-bold text-slate-700">
@@ -266,7 +278,8 @@
                 autre: "", 
                 peche: document.getElementById('peche').value,
                 miam: Array.from(document.querySelectorAll('input[name="miam"]:checked')).map(el => el.value).join(', '),
-                proposition: document.getElementById('proposition_repas').value
+                proposition: document.getElementById('proposition_repas').value,
+                heure_arrivee: document.getElementById('heure_arrivee').value
             };
 
             await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
@@ -276,4 +289,5 @@
         loadParticipants();
     </script>
 </body>
+</html>
 </html>
