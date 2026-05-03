@@ -31,7 +31,7 @@
             <!-- PRÉSENCE & HEURE D'ARRIVÉE -->
             <div>
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 ml-1">Tes Jours</label>
-                <div class="grid grid-cols-2 gap-3 mb-3">
+                <div class="grid grid-cols-2 gap-3 mb-4">
                     <label class="flex items-center p-4 bg-slate-50 rounded-2xl cursor-pointer border-2 border-transparent has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50 transition-all font-bold text-slate-600">
                         <input type="checkbox" name="jours" value="Jeudi" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Jeudi</span>
                     </label>
@@ -45,16 +45,14 @@
                         <input type="checkbox" name="jours" value="Dimanche" class="w-5 h-5 rounded text-blue-600 border-none"> <span class="ml-3">Dimanche</span>
                     </label>
                 </div>
-                <!-- NOUVEAU : HEURE ARRIVÉE -->
-                <select id="heure_arrivee" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 font-bold text-slate-500 outline-none focus:border-blue-500 transition-all appearance-none cursor-pointer">
-                    <option value="">Heure d'arrivée estimée ? (Optionnel)</option>
-                    <option value="Matin">☀️ Dans la matinée</option>
-                    <option value="Midi">🍽️ Pour manger le midi</option>
-                    <option value="Aprem">🏕️ Dans l'après-midi</option>
-                    <option value="Fin de journée">🌅 Fin de journée (après le boulot)</option>
-                    <option value="Soirée">🌙 Dans la soirée</option>
-                    <option value="Tard">🦉 Tard dans la nuit</option>
-                </select>
+                
+                <!-- NOUVEAU : HEURE ARRIVÉE (Saisie de l'heure exacte) -->
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 ml-1">Heure d'arrivée estimée (Optionnel)</label>
+                    <div class="relative">
+                        <input type="time" id="heure_arrivee" class="w-full rounded-2xl border-2 border-slate-50 bg-slate-50 p-4 font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all cursor-pointer">
+                    </div>
+                </div>
             </div>
 
             <!-- PÊCHE -->
@@ -152,7 +150,7 @@
     </section>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzoSz59AeHo88Z3BEUB0uDZs26TKi7brdilBRqkbk8wlEo_SyM8bUUk0u5XuMJaF-s/exec"; // ⚠️ A MODIFIER
+        const SCRIPT_URL = "TON_URL_GOOGLE_SCRIPT_ICI"; // ⚠️ A MODIFIER
 
         let userId = localStorage.getItem('weekend_user_id') || 'user_' + Math.random().toString(36).substr(2, 9);
         localStorage.setItem('weekend_user_id', userId);
@@ -204,7 +202,6 @@
                 const container = document.getElementById('listeParticipants');
                 document.getElementById('count').innerText = data.length > 0 ? `(${data.length})` : "";
                 
-                // Pré-remplissage avec l'ID maintenant en position 8 (index 8)
                 const me = data.find(p => p[8] === userId);
                 if (me) {
                     document.getElementById('submitBtn').innerText = "Mettre à jour mes choix";
@@ -253,6 +250,7 @@
                             </div>
                         </div>
 
+                        <!-- Menu (Caché pour le moment avec 'hidden') -->
                         <div class="hidden bg-orange-50 p-4 rounded-2xl border border-orange-100">
                             <p class="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-1">Miam :</p>
                             <p class="text-xs font-bold text-slate-700">
